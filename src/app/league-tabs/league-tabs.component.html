@@ -1,1 +1,9 @@
 <p>league-tabs works!</p>
+<div class="league-container">
+  <button
+    [class]="loadedLeague.length > 0 ? 'btn-chose' : 'btn'"
+    *ngFor="let league of loadedLeague"
+  >
+    {{ league.strLeague }}
+  </button>
+</div>
