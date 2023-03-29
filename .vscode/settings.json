@@ -1,0 +1,11 @@
+{
+    "angular.enable-strict-mode-prompt": false,
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#c11ca8" ,
+        "activityBar.inactiveForeground": "#13297a",
+        "tab.hoverBackground": "#1aaea1",
+        "window.activeBorder": "#d51c07",
+        "titleBar.activeBackground": "#00AA00",
+        "list.activeSelectionBackground": "#44509f",
+    }
+}
