@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class LeagueTabsComponent {
   loadedLeague: Leagues[] = [];
-  isFetching = false;
+  leagueMarker: string = '';
   private errorSub: Subscription;
   constructor(private leagueService: FetchFootballService) {}
 
@@ -23,10 +23,13 @@ export class LeagueTabsComponent {
 
   getLoadedLeague() {
     return this.leagueService.getLeagues().subscribe((data) => {
-      this.isFetching = true;
       this.loadedLeague = data;
-      console.log(this.loadedLeague);
-      this.isFetching = false;
     });
+  }
+
+  onSelectLeague(leagueName: string) {
+    if (this.leagueMarker == leagueName) return;
+    this.leagueMarker = leagueName;
+    this.leagueService.leagueName.next(leagueName);
   }
 }

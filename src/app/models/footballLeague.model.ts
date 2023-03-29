@@ -47,7 +47,11 @@ export interface Leagues {
   strComplete: null;
   strLocked: string;
 }
-export interface Team {
+export interface TeamDisplay {
+  strTeam: string;
+  strTeamBadge: string;
+}
+export interface Teams {
   idTeam: string;
   idSoccerXML?: string;
   idAPIfootball: string;

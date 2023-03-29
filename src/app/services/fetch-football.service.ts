@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Leagues } from '../models/footballLeague.model';
+import { Leagues, Teams, TeamDisplay } from '../models/footballLeague.model';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
 export class FetchFootballService {
-  error = new Subject<string>();
-
+  leagueName = new Subject<string>();
   constructor(private http: HttpClient) {}
 
   getLeagues = () => {
@@ -16,22 +15,24 @@ export class FetchFootballService {
     return this.http.get<{ [key: string]: Leagues[] }>(url).pipe(
       map((responseData) => {
         let leagueArray: Leagues[] = [];
-        leagueArray = responseData.leagues.slice(0, 7);
+        leagueArray = responseData.leagues.slice(2, 7);
         return leagueArray;
       })
     );
   };
 
-  getTeamsInLeague = (leagueName: string) => {
-    const editLeagueName = leagueName.replaceAll(' ', '_');
+  getTeamsInLeague = (selectedLeagueName: string) => {
+    const editLeagueName = selectedLeagueName.replaceAll(' ', '_');
     const url = `https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=${editLeagueName}`;
-    return this.http.get(url);
-    // .pipe(
-    //   map((responseData) => {
-    //     let leagueArray: Leagues[] = [];
-    //     leagueArray = responseData.leagues.slice(0, 7);
-    //     return leagueArray;
-    //   })
-    // );
+
+    return this.http.get<{ [key: string]: Teams[] }>(url).pipe(
+      map((responseData) => {
+        let leagueArray: TeamDisplay[] = [];
+        leagueArray = responseData.teams.map((team) => {
+          return { strTeam: team.strTeam, strTeamBadge: team.strTeamBadge };
+        });
+        return leagueArray;
+      })
+    );
   };
 }
