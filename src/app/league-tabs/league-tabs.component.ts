@@ -11,14 +11,10 @@ import { Subscription } from 'rxjs';
 export class LeagueTabsComponent {
   loadedLeague: Leagues[] = [];
   leagueMarker: string = '';
-  private errorSub: Subscription;
   constructor(private leagueService: FetchFootballService) {}
 
   ngOnInit(): void {
     this.getLoadedLeague();
-  }
-  ngOnDestroy(): void {
-    this.errorSub.unsubscribe();
   }
 
   getLoadedLeague() {

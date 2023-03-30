@@ -21,7 +21,7 @@ export class TeamsListComponent implements OnInit, OnDestroy {
           this.teams = teams;
           this.isLoading = false;
         });
-        if (this.teams.length === 0) this.isLoading = false;
+        if (!this.teams.length) this.isLoading = false;
       }
     );
   }
